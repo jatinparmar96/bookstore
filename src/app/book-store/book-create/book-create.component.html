@@ -1,0 +1,25 @@
+<div class="content-wrapper">
+  <form class="form" [formGroup]="bookForm" (ngSubmit)="submit()">
+    <mat-form-field class="" appearance="outline">
+      <mat-label>Name of the Book</mat-label>
+      <input formControlName="name" matInput placeholder="Enter a book name">
+    </mat-form-field>
+
+    <mat-form-field class="" appearance="outline">
+      <mat-label>Name of the Author</mat-label>
+      <input formControlName="author" matInput placeholder="Enter author's name">
+    </mat-form-field>
+
+    <mat-form-field class="" appearance="outline">
+      <mat-label>Published Date</mat-label>
+      <input formControlName="publishedDate" matInput type="date">
+    </mat-form-field>
+    <section class="align-start">
+      <label>BestSeller ?
+        <mat-checkbox formControlName="bestseller"></mat-checkbox>
+      </label>
+    </section>
+
+    <button mat-flat-button color="primary">Add Book</button>
+  </form>
+</div>

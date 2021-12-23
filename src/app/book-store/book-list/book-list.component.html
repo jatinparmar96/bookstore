@@ -1,0 +1,34 @@
+<div class="content-wrapper">
+  <button color="primary" mat-flat-button [routerLink]="['add']">Add Book</button>
+  <input class="search" placeholder="Search Books..." role="searchbox" type="text">
+  <div class="book-list">
+    <table [dataSource]="books" mat-table>
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th *matHeaderCellDef mat-header-cell> No.</th>
+        <td *matCellDef="let element" mat-cell> {{element.position}} </td>
+      </ng-container>
+      <!-- Book Name Column -->
+      <ng-container matColumnDef="name">
+        <th *matHeaderCellDef mat-header-cell> Book Name</th>
+        <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Author Column -->
+      <ng-container matColumnDef="author">
+        <th *matHeaderCellDef mat-header-cell> Author</th>
+        <td *matCellDef="let element" mat-cell> {{element.author}} </td>
+      </ng-container>
+
+      <!-- Published Year Column -->
+      <ng-container matColumnDef="published year">
+        <th *matHeaderCellDef mat-header-cell> Published Year</th>
+        <td *matCellDef="let element" mat-cell> {{element.publishedYear}} </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>

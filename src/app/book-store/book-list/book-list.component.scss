@@ -1,0 +1,19 @@
+
+.search{
+  display: block;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  width: 100%;
+  border-radius: 5px;
+  transition: box-shadow 300ms ease;
+}
+.search:focus{
+  border: 1px steelblue inset;
+  box-shadow: 0 0 32px steelblue;
+}
+.book-list{
+  margin-top: 1.5rem;
+}
+table{
+  width: 100%;
+}
