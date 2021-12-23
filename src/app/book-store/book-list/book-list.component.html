@@ -1,12 +1,15 @@
 <div class="content-wrapper">
   <button color="primary" mat-flat-button [routerLink]="['add']">Add Book</button>
   <input class="search" placeholder="Search Books..." role="searchbox" type="text">
-  <div class="book-list">
-    <table [dataSource]="books" mat-table>
+  <div class="book-list mat-elevation-z8">
+
+    <table [dataSource]="dataSource" mat-table>
       <!-- Position Column -->
       <ng-container matColumnDef="position">
         <th *matHeaderCellDef mat-header-cell> No.</th>
-        <td *matCellDef="let element" mat-cell> {{element.position}} </td>
+        <td *matCellDef="let element;let i = index" mat-cell>
+          {{this.paginator.pageIndex * this.paginator.pageSize + i + 1}}
+        </td>
       </ng-container>
       <!-- Book Name Column -->
       <ng-container matColumnDef="name">
@@ -26,9 +29,28 @@
         <td *matCellDef="let element" mat-cell> {{element.publishedYear}} </td>
       </ng-container>
 
+      <!-- BestSeller Column -->
+      <ng-container matColumnDef="bestseller">
+        <th *matHeaderCellDef mat-header-cell> BestSeller</th>
+        <td *matCellDef="let element" mat-cell> {{element.isBestSeller?'Yes':'No'}} </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th *matHeaderCellDef mat-header-cell>Actions</th>
+        <td *matCellDef="let element;let i = index" mat-cell>
+          <button color="accent" mat-mini-fab (click)="edit(this.paginator.pageIndex * this.paginator.pageSize + i)">
+            <mat-icon aria-hidden="false" aria-label="edit icon">edit</mat-icon>
+          </button>
+
+          <button color="warn" mat-mini-fab class="ml-2" (click)="delete(this.paginator.pageIndex * this.paginator.pageSize + i)">
+            <mat-icon aria-hidden="false" aria-label="delete icon">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator #paginator  [pageSizeOptions]="[5, 10, 25]" aria-label="Select page of users"></mat-paginator>
   </div>
 </div>

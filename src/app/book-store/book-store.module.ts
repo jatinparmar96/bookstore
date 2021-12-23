@@ -11,7 +11,8 @@ import {BookCreateComponent} from './book-create/book-create.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {ReactiveFormsModule} from "@angular/forms";
-
+import { MatSortModule } from '@angular/material/sort';
+import {MatIconModule} from "@angular/material/icon";
 @NgModule({
   declarations: [
     BookListComponent,
@@ -23,11 +24,12 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatButtonModule,
     MatCardModule,
     MatTableModule,
+    MatSortModule,
     MatPaginatorModule,
     MatInputModule,
     MatCheckboxModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    MatIconModule,
   ]
 })
 export class BookStoreModule {
