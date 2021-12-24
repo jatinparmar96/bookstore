@@ -45,7 +45,7 @@ export class BookCreateComponent implements OnInit {
     this.bookForm.patchValue({
       name:book.name,
       author: book.author,
-      publishedDate: book.publishedYear,
+      publishedDate: book.publishedDate,
       bestseller: book.isBestSeller
     });
   }
@@ -55,7 +55,7 @@ export class BookCreateComponent implements OnInit {
     const book:Book = {
       name:this.bookForm.value.name,
       author:this.bookForm.value.author,
-      publishedYear:this.bookForm.value.publishedDate,
+      publishedDate:this.bookForm.value.publishedDate,
       isBestSeller:this.bookForm.value.bestseller,
     }
     if (this.isEditMode){

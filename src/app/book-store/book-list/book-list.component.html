@@ -1,8 +1,37 @@
 <div class="content-wrapper">
   <button color="primary" mat-flat-button [routerLink]="['add']">Add Book</button>
-  <input class="search" placeholder="Search Books..." role="searchbox" type="text">
   <div class="book-list mat-elevation-z8">
+    <form [formGroup]="filterForm">
+      <div class="filter">
+        <mat-form-field appearance="outline">
+          <input matInput
+                 formControlName="name"
+                 (keyup)="applyNameFilter($event)"
+                 placeholder="Search Book Name"
+          >
+        </mat-form-field>
 
+        <mat-form-field appearance="outline">
+          <input matInput
+                 formControlName="author"
+                 class="search"
+                 placeholder="Search Author Name">
+        </mat-form-field>
+
+        <mat-form-field  appearance="outline">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input formGroupName="publishedDate" [rangePicker]="picker">
+            <input matStartDate formControlName="startDate" placeholder="Start date">
+            <input matEndDate formControlName="endDate" placeholder="End date">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <mat-checkbox color="primary" formControlName="bestseller">
+          Show Only BestSeller
+        </mat-checkbox>
+      </div>
+    </form>
     <table [dataSource]="dataSource" mat-table>
       <!-- Position Column -->
       <ng-container matColumnDef="position">
@@ -24,15 +53,15 @@
       </ng-container>
 
       <!-- Published Year Column -->
-      <ng-container matColumnDef="published year">
-        <th *matHeaderCellDef mat-header-cell> Published Year</th>
-        <td *matCellDef="let element" mat-cell> {{element.publishedYear}} </td>
+      <ng-container matColumnDef="published date">
+        <th *matHeaderCellDef mat-header-cell> Published Date</th>
+        <td *matCellDef="let element" mat-cell>{{element.publishedDate | date}}</td>
       </ng-container>
 
       <!-- BestSeller Column -->
       <ng-container matColumnDef="bestseller">
         <th *matHeaderCellDef mat-header-cell> BestSeller</th>
-        <td *matCellDef="let element" mat-cell> {{element.isBestSeller?'Yes':'No'}} </td>
+        <td *matCellDef="let element" mat-cell> {{element.isBestSeller ? 'Yes' : 'No'}} </td>
       </ng-container>
 
       <!-- Actions Column -->
@@ -43,7 +72,8 @@
             <mat-icon aria-hidden="false" aria-label="edit icon">edit</mat-icon>
           </button>
 
-          <button color="warn" mat-mini-fab class="ml-2" (click)="delete(this.paginator.pageIndex * this.paginator.pageSize + i)">
+          <button color="warn" mat-mini-fab class="ml-2"
+                  (click)="delete(this.paginator.pageIndex * this.paginator.pageSize + i)">
             <mat-icon aria-hidden="false" aria-label="delete icon">delete</mat-icon>
           </button>
         </td>
@@ -51,6 +81,6 @@
       <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
       <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
     </table>
-    <mat-paginator #paginator  [pageSizeOptions]="[5, 10, 25]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25]" aria-label="Select page of users"></mat-paginator>
   </div>
 </div>

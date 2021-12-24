@@ -13,6 +13,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {ReactiveFormsModule} from "@angular/forms";
 import { MatSortModule } from '@angular/material/sort';
 import {MatIconModule} from "@angular/material/icon";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     BookListComponent,
@@ -30,6 +33,8 @@ import {MatIconModule} from "@angular/material/icon";
     MatCheckboxModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class BookStoreModule {
