@@ -1,4 +1,5 @@
 <div class="content-wrapper">
+  <a [routerLink]="['../']" > <mat-icon>arrow_back</mat-icon></a>
   <form class="form" [formGroup]="bookForm" (ngSubmit)="submit()">
     <mat-form-field class="" appearance="outline">
       <mat-label>Name of the Book</mat-label>
