@@ -1,9 +1,7 @@
 .filter{
   padding: 1rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 1rem;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 .book-list{
   margin-top: 1.5rem;
@@ -13,4 +11,12 @@ table{
 }
 .ml-2{
   margin-left: 1rem;
+}
+@media screen and (min-width: 1024px) {
+  .filter{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+  }
 }
