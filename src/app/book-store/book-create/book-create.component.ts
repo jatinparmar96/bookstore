@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Book} from "../book.model";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-book-create',
@@ -11,9 +11,13 @@ import {Router} from "@angular/router";
 export class BookCreateComponent implements OnInit {
   bookForm:FormGroup;
   storeName = 'bookStore';
+  isEditMode = false;
+  bookStore:Book[] = [];
+  bookIdx:number =-1;
   constructor(
     fb: FormBuilder,
     private router: Router,
+    private route:ActivatedRoute
   ) {
     this.bookForm = fb.group({
       'name':['',Validators.required],
@@ -24,20 +28,44 @@ export class BookCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-  submit(){
     if (!localStorage.getItem(this.storeName)){
       localStorage.removeItem(this.storeName);
     }
-    const bookStore =  JSON.parse(localStorage.getItem(this.storeName) || '[]');
+    this.bookStore =  JSON.parse(localStorage.getItem(this.storeName) || '[]');
+    this.route.params.subscribe(value => {
+      if (value['id'] !=='add'){
+        this.isEditMode = true
+        this.bookIdx = value['id']
+        this.loadFormFields(value['id']);
+      }
+    })
+  }
+  loadFormFields(id:number){
+    const book = this.bookStore[id];
+    this.bookForm.patchValue({
+      name:book.name,
+      author: book.author,
+      publishedDate: book.publishedYear,
+      bestseller: book.isBestSeller
+    });
+  }
+  submit(){
+    if (this.bookForm.invalid) return;
+
     const book:Book = {
       name:this.bookForm.value.name,
       author:this.bookForm.value.author,
       publishedYear:this.bookForm.value.publishedDate,
       isBestSeller:this.bookForm.value.bestseller,
     }
-    bookStore.push(book);
-    localStorage.setItem(this.storeName,JSON.stringify(bookStore));
+    if (this.isEditMode){
+      this.bookStore.splice(this.bookIdx,1,book)
+    }
+    else {
+      this.bookStore.push(book);
+    }
+
+    localStorage.setItem(this.storeName,JSON.stringify(this.bookStore));
     this.router.navigate(['/'])
   }
 

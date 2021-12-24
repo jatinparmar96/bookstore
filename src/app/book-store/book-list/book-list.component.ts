@@ -26,7 +26,11 @@ export class BookListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.seedBookData();
+    if (!localStorage.getItem(this.storeName)){
+      this.seedBookData();
+    }
+    this.loadBookData()
+
   }
 
   ngAfterViewInit() {
@@ -45,6 +49,10 @@ export class BookListComponent implements OnInit, AfterViewInit {
     this.books = [...this.books, ...books];
     this.dataSource.data = this.books
    // this.dataSource = new MatTableDataSource<Book>(this.books)
+  }
+  loadBookData(){
+    this.books = JSON.parse(localStorage.getItem(this.storeName) || '[]');
+    this.dataSource.data = this.books
   }
 
   edit(idx:number){
