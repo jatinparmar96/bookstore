@@ -14,6 +14,8 @@ export class BookCreateComponent implements OnInit {
   isEditMode = false;
   bookStore:Book[] = [];
   bookIdx:number =-1;
+
+  maxDate = Date.now();
   constructor(
     fb: FormBuilder,
     private router: Router,
@@ -67,6 +69,14 @@ export class BookCreateComponent implements OnInit {
 
     localStorage.setItem(this.storeName,JSON.stringify(this.bookStore));
     this.router.navigate(['/'])
+  }
+
+  filterFutureDates = (d:Date | null)=>{
+   const currentDate = new Date();
+   if (d){
+     return d<=currentDate;
+   }
+    return true;
   }
 
 }
